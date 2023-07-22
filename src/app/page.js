@@ -7,7 +7,7 @@ export default function Home() {
       <h3>Generate animal name</h3>
       <form action="/post">
         <input type="text" />
-        <button type="submit">제출</button>
+        <button type="submit">Submit</button>
       </form>
     </main>
   );
