@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function Home() {
   const [counter, setCounter] = useState(0);
   const handleSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
   };
 
   return (
@@ -17,7 +17,7 @@ export default function Home() {
         <button type="submit">Submit</button>
       </form>
       <p>counter {counter}</p>
-      <button type="button" onClick={() => setCounter(counter + 1)}>
+      <button type="button" onClick={(event) => handleSubmit(event)}>
         Button
       </button>
     </main>
