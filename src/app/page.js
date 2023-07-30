@@ -3,9 +3,11 @@ import { useState } from 'react';
 
 export default function Home() {
   const [value, setValue] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('value', value);
+    setValue('');
   };
 
   const handleChange = (event) => {
