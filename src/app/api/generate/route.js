@@ -1,4 +1,6 @@
 import * as dotenv from 'dotenv';
+import { NextResponse } from 'next/server';
+// import { Configuration, OpenAIApi } from 'openai';
 
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -9,22 +11,19 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export async function POST(request) {
-  const body = await request.json();
+export async function POST(req) {
+  const body = await req.json();
   const animal = body.animal || '';
-  // const completion = await openai.createChatCompletion({
-  //   model: 'gpt-3.5-turbo',
-  //   // 메시지 설정 | 메커니즘은 system -> user -> assistant -> user -> assistant 반복
-  //   prompt: `Suggest three pet names for the follow`,
-  // });
-  // const fortune = completion.data.choices[0].message;
-  // console.log('🚀 : fortune===>', fortune);
-  return Response.json({ result: 'bla' });
+
+  console.log('configuration.apiKey', configuration.apiKey);
+
+  const response = await openai.createChatCompletion({
+    model: 'text-davinci-003',
+    prompt: `suggest three pet names for the follow ${animal}`,
+    temperature: 0.8,
+    max_tokens: 100,
+  });
+  return Response.json({ result: response.data.choices[0].text });
 }
 
-// const response = await openai.createChatCompletion({
-//   model: 'gpt-3.5-turbo',
-//   messages: [],
-//   temperature: 0.8,
-//   max_tokens: 100,
-// });
+// suggest three pet names for the follow ${animal}
