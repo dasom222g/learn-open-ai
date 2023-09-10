@@ -4,6 +4,7 @@ import styles from './index.module.css';
 
 export default function Home() {
   const [value, setValue] = useState('');
+  const [result, setResult] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,7 +22,9 @@ export default function Home() {
         body: JSON.stringify({ animal: value }),
       });
 
-      const data = response.json();
+      const data = await response.json();
+      // console.log('🚀 : data==>', data);
+      setResult(data.data);
     } catch (error) {
       console.error(error);
     }
@@ -54,7 +57,7 @@ export default function Home() {
         />
         <button type="submit">Submit</button>
       </form>
-      <div className={styles.result}>결과 부분</div>
+      <div className={styles.result}>{result}</div>
       <button type="button" onClick={getData}>
         get API
       </button>
