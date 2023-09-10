@@ -10,9 +10,6 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log('value', value);
-    setValue('');
-
     // api 호출
     try {
       const response = await fetch('/api/generate', {
@@ -24,11 +21,16 @@ export default function Home() {
       });
 
       const data = await response.json();
-      // console.log('🚀 : data==>', data);
+      if (data.status === 401) {
+        console.error(data.message + 'ㅁㅇ나ㅓ라ㅣ어');
+        return;
+      }
       setResult(data.data);
     } catch (error) {
       console.error(error);
     }
+
+    setValue('');
   };
 
   const handleChange = (event) => {
