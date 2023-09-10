@@ -9,6 +9,7 @@ export default function Home() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!value.length) return;
 
     // api 호출
     try {
@@ -21,13 +22,13 @@ export default function Home() {
       });
 
       const data = await response.json();
-      if (data.status === 401) {
-        console.error(data.message + 'ㅁㅇ나ㅓ라ㅣ어');
-        return;
+      if (data.status !== 200) {
+        // 200코드 이외의 결과값은 catch 문으로 보내는 코드
+        throw data || new Error(`Request failed with status ${data.status}`);
       }
       setResult(data.data);
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
 
     setValue('');
@@ -42,10 +43,6 @@ export default function Home() {
     const data = await response.json();
     console.log('🚀 : data==>', data);
   };
-
-  // useEffect(() => {
-  //   console.log('styles', styles.main);
-  // });
 
   return (
     // <main className="flex min-h-screen flex-col items-center justify-between p-24">
