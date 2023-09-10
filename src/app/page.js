@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import styles from './index.module.css';
+// import Counter from './components/Counter';
 
 export default function Home() {
   const [value, setValue] = useState('');
@@ -61,6 +62,7 @@ export default function Home() {
       <button type="button" onClick={getData}>
         get API
       </button>
+      {/* <Counter /> */}
     </main>
   );
 }
